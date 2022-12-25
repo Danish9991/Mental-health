@@ -154,6 +154,7 @@ app.use("/admin",adminRouter);
 app.use("/posts/category",postCategoriesRouter);
 app.use(tipsRoutes);
 
+//port
 app.listen(3000, ()=>{
     console.log("server is running on port 3000!");
 })
