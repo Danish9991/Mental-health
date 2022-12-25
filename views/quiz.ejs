@@ -1,0 +1,264 @@
+<%- include("partials/header") %>
+<html>
+<head lang="en">
+	<meta charset="UTF-8">
+  <title>Simple Quiz</title>
+  
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,800" rel="stylesheet">
+	<script src="http://code.jquery.com/jquery-1.6.2.min.js"></script>    
+    <style>
+        body {
+	background-color: #0097b2;
+	font-family: "Open Sans", sans-serif;
+	font-size: 1em;
+	text-align: center;
+}
+h1 {
+	color: #fff;
+	font-size: 1.7rem;
+	font-weight: bold;
+	margin: 30px 0;
+	text-transform: uppercase;
+}
+h2 { color: #666; }
+h3 {
+	font-size: 1.3rem;
+	font-style: italic;
+}
+button {
+	background-color: tomato;
+	border: none;
+	border-radius: 30px;
+	box-shadow: 0 3px 3px 0 rgba(0,0,0,0.4),
+		0 0 2px 1px rgba(0,0,0,0.1);
+	cursor: pointer;
+	color: #fff;
+	font-size: 1rem;
+	padding: 15px 30px;
+	margin: 10px 5px 30px;
+	transition: all 0.1s ease-in;
+}
+button:hover {
+	/*background-color: red;*/
+	box-shadow: 0 6px 6px 0 rgba(0,0,0,0.25),
+		0 0 4px 2px rgba(0,0,0,0.05);
+	transform: translateY(-2px);
+}
+button:focus { outline: 0; }
+footer {
+	border-top: 1px solid #ccc;
+	font-size: 0.9rem;
+	margin: 20px 0 30px;
+}
+#quiz {
+	background-color: #fff;
+	box-shadow: 0 3px 2px 1px rgba(0,0,0,0.2),
+		0 0 6px 3px rgba(0,0,0,0.05);
+	margin: 0 auto 30px;
+	padding: 20px;
+	width: 66%;
+}
+#progress { float: left; }
+#score { 
+	float: right;
+	font-weight: bold;
+}
+    </style>
+</head>
+<body>
+
+<div  style="height: 600px;text-align: center; margin-top: 40px; ">
+  <h1>Addiction Quiz</h1>
+	<div id="quiz" class="container" style="margin-top: 80px;">
+		<h3 id="question"></h3>
+		<button id="choice0"></button>
+		<button id="choice1"></button>
+		<button id="choice2"></button>
+		<footer>
+			<p><span id="progress"></span><span id="score"></span></p>
+		</footer>
+		
+	</div>
+	<form>
+		<input class="btn btn-success" type="button" id="enter" value="Enter">
+	 </form>
+</div>
+
+<script>
+	var scores;
+    // QUESTION CONSTRUCTOR
+function Question(text, choices, answer) {
+	this.text = text; // string
+	this.choices = choices; // array
+	this.answer = answer; // string
+}
+Question.prototype.isCorrect = function(choice) {
+	// Return TRUE if choice matches correct answer
+	return this.answer === choice; 
+};
+
+// QUIZ CONSTRUCTOR
+function Quiz(questions) {
+	// Array of questions
+	this.questions = questions;
+	// Track which question you're on, starting with the first question
+	this.currentQuestionIndex = 0;
+	this.score = 0; // Score keeper
+}
+Quiz.prototype.getCurrentQuestion = function() {
+	return this.questions[this.currentQuestionIndex];
+};
+Quiz.prototype.checkAnswer = function(answer) {
+	if(this.getCurrentQuestion().isCorrect(answer)) {
+		this.score++; // Add 1 point if correct
+	}
+	this.currentQuestionIndex++; // Get ready for next question
+};
+// Check if quiz end is reached
+Quiz.prototype.hasEnded = function() {
+	// Return TRUE only after last question
+	return this.currentQuestionIndex >= this.questions.length;
+};
+
+// QUIZ UI
+var QuizUI = {
+	displayNext: function() {
+		if(quiz.hasEnded()) {
+			this.showResults();
+			console.log("scored",scores);
+			
+		} else {
+			this.displayQuestion();
+			this.displayChoices();
+			this.displayProgress();
+			this.displayScore();
+		}
+	},
+	displayQuestion: function() {
+		this.populateIdWithHTML('question', quiz.getCurrentQuestion().text);
+	},
+	displayChoices: function() {
+		var choices = quiz.getCurrentQuestion().choices;
+		// Loop through each choice and display on page
+		for(var i = 0; i < choices.length; i++) {
+			var choiceId = 'choice' + i;
+			var choiceText = choices[i];
+			this.populateIdWithHTML(choiceId, choiceText);
+			this.checkAnswerHandler(choiceId, choiceText);
+		}
+	},
+	checkAnswerHandler: function(id, guess) {
+		var button = document.getElementById(id);
+		button.onclick = function() {
+			quiz.checkAnswer(guess);
+			QuizUI.displayNext();
+		}
+	},
+	displayScore: function() {
+		var scoreText = 'Score: ' + quiz.score;
+       
+		this.populateIdWithHTML('score', scoreText);
+	},
+	displayProgress: function() {
+		var questionNumber = quiz.currentQuestionIndex + 1;
+		var totalQuestions = quiz.questions.length;
+		var progressText = 'Question ' + questionNumber + ' of ' + totalQuestions;
+		this.populateIdWithHTML('progress', progressText);
+	},
+	showResults: function() {
+		var grade = quiz.score/quiz.questions.length;
+		var results = '<h2>';
+		if(grade >= 0.6) {
+			results += 'Excellent!';
+		} else if(grade < 0.6 && grade > 0.4    ) {
+			results += 'Not Bad...';
+		} else {
+			results += 'Terrible!';
+		}
+		results += `</h2><h3>Your final score is: <span id="scr">  ${quiz.score}  </span></h3>
+		<table class="table">
+  <h3>Scoring</h3>
+ <tbody>
+   <tr>
+    <th>0-20</th>
+    <th>ADHD unlikely</th>
+   </tr>
+   <tr>
+    <th>20-39</th>
+    <th>ADHD unlikely</th>
+   </tr>
+   <tr>
+    <th>40+ </th>
+    <th>ADHD unlikely</th>
+   </tr>
+  
+</tbody>
+		`;
+		// results += '<button id="reset">Try Again?</button>';
+        console.log(quiz.score);
+        score = quiz.score;
+		scores = quiz.score;
+		this.populateIdWithHTML('quiz', results);
+      
+		// this.resetQuizHandler();
+        
+	},
+
+    
+	// resetQuizHandler: function() {
+	// 	var resetBtn = document.getElementById('reset');
+	// 	// Reload quiz to start from beginning
+	// 	resetBtn.onclick = function() {
+	// 		window.location.reload(false);
+	// 	}
+	// },
+	populateIdWithHTML: function(id, content) {
+		var element = document.getElementById(id);
+		element.innerHTML = content;
+	}
+};
+
+// Hover effect - move button down
+//var hoverBtn = document.getElementByTagName('button');
+//hoverBtn.onmouseover = function() {
+//	this.style['margin-top'] = '25px';
+//}
+
+// CREATE QUESTIONS
+var questions = [
+	new Question('Which state is Chicago in?', ['Iowa', 'Illinois', 'Indiana'], 'Illinois'),
+	new Question('How many states are in the United States?', ['48', '50'], '50'),
+	new Question('Who was the first president of the United States?', ['George Washington', 'Abraham Lincoln', ], 'George Washington'),
+    new Question('Which state is Chicago in?', ['Iowa', 'Illinois', 'Indiana'], 'Illinois'),
+	new Question('How many states are in the United States?', ['48', '49', '50'], '50'),
+	new Question('Who was the first president of the United States?', ['George Washington', 'Andrew Jackson'], 'George Washington'),
+	
+];
+// CREATE QUIZ & DISPLAY FIRST QUESTION
+var quiz = new Quiz(questions);
+QuizUI.displayNext();
+$('#enter').click(function(){  
+
+$.ajax({ 
+	  url: '/ajax',
+	  type: 'POST',
+	  cache: false, 
+	  data: {score: scores,type:"addiction"}, 
+	  success: function(data){
+        alert("your score has been recorded")
+		window.location.href="/posts/category/quizResult";
+	  }
+	  , error: function(jqXHR, textStatus, err){
+		  alert('text status '+textStatus+', err '+err)
+	  }
+   })
+});
+</script>
+
+</body>
+</html>
+
+
+
+
+<%- include("partials/footer") %>

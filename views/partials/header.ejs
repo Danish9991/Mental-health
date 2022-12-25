@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- CSS only -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,500;1,600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+<link rel="stylesheet" href="/styles/main.css">
+    <title>Admin Section</title>
+    <style>
+  /*
+ * Made by Erik Terwan
+ * 24th of November 2015
+ * MIT License
+ *
+ *
+ * If you are thinking of using this in
+ * production code, beware of the browser
+ * prefixes.
+ */
+
+body
+{
+  margin: 0;
+  padding: 0;
+  
+  /* make it look decent enough */
+  background: #232323;
+  color: #cdcdcd;
+  font-family: "Avenir Next", "Avenir", sans-serif;
+}
+
+#menuToggle
+{
+  display: block;
+  position: relative;
+  top: 50px;
+  left: 50px;
+  
+  z-index: 1;
+  
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+#menuToggle a
+{
+  text-decoration: none;
+  color: #232323;
+  
+  transition: color 0.3s ease;
+}
+
+#menuToggle a:hover
+{
+  color: tomato;
+}
+
+
+#menuToggle input
+{
+  display: block;
+  width: 40px;
+  height: 32px;
+  position: absolute;
+  top: -7px;
+  left: -5px;
+  
+  cursor: pointer;
+  
+  opacity: 0; /* hide this */
+  z-index: 2; /* and place it over the hamburger */
+  
+  -webkit-touch-callout: none;
+}
+
+/*
+ * Just a quick hamburger
+ */
+#menuToggle span
+{
+  display: block;
+  width: 33px;
+  height: 4px;
+  margin-bottom: 5px;
+  position: relative;
+  
+  background: #cdcdcd;
+  border-radius: 3px;
+  
+  z-index: 1;
+  
+  transform-origin: 4px 0px;
+  
+  transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0),
+              background 0.5s cubic-bezier(0.77,0.2,0.05,1.0),
+              opacity 0.55s ease;
+}
+
+#menuToggle span:first-child
+{
+  transform-origin: 0% 0%;
+}
+
+#menuToggle span:nth-last-child(2)
+{
+  transform-origin: 0% 100%;
+}
+
+/* 
+ * Transform all the slices of hamburger
+ * into a crossmark.
+ */
+#menuToggle input:checked ~ span
+{
+  opacity: 1;
+  transform: rotate(45deg) translate(-2px, -1px);
+  background: #232323;
+}
+
+/*
+ * But let's hide the middle one.
+ */
+#menuToggle input:checked ~ span:nth-last-child(3)
+{
+  opacity: 0;
+  transform: rotate(0deg) scale(0.2, 0.2);
+}
+
+/*
+ * Ohyeah and the last one should go the other direction
+ */
+#menuToggle input:checked ~ span:nth-last-child(2)
+{
+  transform: rotate(-45deg) translate(0, -1px);
+}
+
+/*
+ * Make this absolute positioned
+ * at the top left of the screen
+ */
+#menu
+{
+  position: absolute;
+  width: 300px;
+  margin: -100px 0 0 -50px;
+  padding: 50px;
+  padding-top: 125px;
+  
+  background: #ededed;
+  list-style-type: none;
+  -webkit-font-smoothing: antialiased;
+  /* to stop flickering of text in safari */
+  
+  transform-origin: 0% 0%;
+  transform: translate(-100%, 0);
+  
+  transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0);
+}
+
+#menu li
+{
+  padding: 10px 0;
+  font-size: 22px;
+}
+
+/*
+ * And let's slide it in from the left
+ */
+#menuToggle input:checked ~ ul
+{
+  transform: none;
+}
+    </style>
+</head>
+<body>
+  <!-- Demo header-->
+<section class="py-5 header text-center">
+  <div class="container py-5 text-white">
+      <header class="py-5">
+          <h1 class="display-4 " style="font-weight: bold;">Merry Mind.</h1>
+          <p style="font-weight: 400; font-size: x-large;" class="font-italic mb-1">There is hope, even when your brain tells you there isn’t..</p>
+          
+      </header>
+  </div>
+</section>
+
+
+<!-- Sticky navbar-->
+<header class="header sticky-top">
+  <nav class="navbar navbar-expand-lg navbar-light bg-white py-3 shadow-sm">
+      <div class="container"><a class="navbar-brand" href="#">
+          <strong class="h6 mb-0 font-weight-bold text-uppercase navbar-brand">Merry mind</strong></a>
+          <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav ml-auto">
+                  <li class="nav-item"><a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a></li>
+                 <% if(isAdmin){ %>
+                    <li class="nav-item">
+                        <a href="/admin/posts" class="nav-link">Signed in as Admin</a>
+                      </li>
+                <% }else{ %>
+
+        <% } %>
+                
+                  <% if(!currentUser){ %>
+                    <li class="nav-item"><a class="nav-link" href="/register">Register</a></li>
+                    <li class="nav-item"><a class="nav-link " href="/login">Login</a></li>
+                 <% } else{ %>
+                    <li class="nav-item"><a class="nav-link " href="/posts/category/quizResult">Quiz Result</a></li>
+                    <li class="nav-item"><a class="nav-link " href="/logout">Logout</a></li>
+                <%  } %>
+                  
+                  
+              </ul>
+          </div>
+      </div>
+  </nav>
+  
+</header>
+
+<div style="width: 100%; height: 180px; background-color: #005a8d;">
+  <div>
+    <!--    Made by Erik Terwan    -->
+    <!--   24th of November 2015   -->
+    <!--        MIT License        -->
+    <nav role="navigation">
+      <div id="menuToggle">
+        <!--
+        A fake / hidden checkbox is used as click reciever,
+        so you can use the :checked selector on it.
+        -->
+        <input type="checkbox" />
+        
+        <!--
+        Some spans to act as a hamburger.
+        
+        They are acting like a real hamburger,
+        not that McDonalds stuff.
+        -->
+        <span></span>
+        <span></span>
+        <span></span>
+        
+        <!--
+        Too bad the menu has to be inside of the button
+        but hey, it's pure CSS magic.
+        -->
+        <ul id="menu">
+          <a href="/posts/category/addictions"><li>Addictions</li></a>
+          <a href="/posts/category/adhd"><li>ADHD Overview</li></a>
+          <a href="/posts/category/anxiety"><li>Anxiety & Panic</li></a>
+          <a href="/posts/category/bipolar"><li>Bipolar Disorder</li></a>
+          <a href="/posts/category/depression"><li>Depression</li></a>
+          <a href="/posts/category/eatingdisorder"><li>Eating Disorders</li></a>
+          <a href="/posts/category/sleepdisorder"><li>Sleep Disorders</li></a>
+          <a href="/posts/category/copingwithstress"><li>Coping with Stress</li></a>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+        </ul>
+      </div>
+    </nav>
+    </div>
+<div style="text-align: center; font-size: 1.5rem; padding: 50px; "  >
+    
+  <a style="color: white; padding: 15px;" href="/posts/category/addictions">Addictions</a>
+  <a style="color: white; padding: 15px; " href="/posts/category/adhd">ADHD Overview</a>
+  <a  style="color:white; padding: 15px; "href="/posts/category/anxiety">Anxiety & Panic</a>
+
+  <a style="color: white; padding: 15px; " href="/posts/category/bipolar">Bipolar Disorder
+ </a>
+  <a  style="color:white; padding: 15px; "href="/posts/category/depression">Depression</a>
+  <a style="color:white; padding: 15px; " href="/posts/category/eatingdisorder">Eating Disorders</a>
+  <a style="color:white; padding: 15px; " href="/posts/category/sleepdisorder">Sleep Disorders</a>
+  <a  style="color:white; padding: 15px; "href="/posts/category/copingwithstress">Coping with Stress</a>
+  
+</div>
+</div> 
+
+<!-- Demo content-->
+<div class="container" style="margin: auto; margin-top: 20px; width: 50%; text-align: center;">
+  <% if(msg && msg.length>0){ %>
+   <div class="alert alert-success" role="alert">
+     <%= msg %>
+  </div>
+  <% } %>
+    
+   <% if(error && error.length>0){ %>
+     <div class="alert alert-danger" role="alert">
+     <%= error %>
+    </div>
+   <% } %>
+  
+    
+  </div>
+  <script>
+    var theToggle = document.getElementById('toggle');
+
+// based on Todd Motto functions
+// https://toddmotto.com/labs/reusable-js/
+
+// hasClass
+function hasClass(elem, className) {
+	return new RegExp(' ' + className + ' ').test(' ' + elem.className + ' ');
+}
+// addClass
+function addClass(elem, className) {
+    if (!hasClass(elem, className)) {
+    	elem.className += ' ' + className;
+    }
+}
+// removeClass
+function removeClass(elem, className) {
+	var newClass = ' ' + elem.className.replace( /[\t\r\n]/g, ' ') + ' ';
+	if (hasClass(elem, className)) {
+        while (newClass.indexOf(' ' + className + ' ') >= 0 ) {
+            newClass = newClass.replace(' ' + className + ' ', ' ');
+        }
+        elem.className = newClass.replace(/^\s+|\s+$/g, '');
+    }
+}
+// toggleClass
+function toggleClass(elem, className) {
+	var newClass = ' ' + elem.className.replace( /[\t\r\n]/g, " " ) + ' ';
+    if (hasClass(elem, className)) {
+        while (newClass.indexOf(" " + className + " ") >= 0 ) {
+            newClass = newClass.replace( " " + className + " " , " " );
+        }
+        elem.className = newClass.replace(/^\s+|\s+$/g, '');
+    } else {
+        elem.className += ' ' + className;
+    }
+}
+
+theToggle.onclick = function() {
+   toggleClass(this, 'on');
+   return false;
+}
+  </script>

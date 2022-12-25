@@ -1,0 +1,50 @@
+<%-include("partials/header") %>
+<div class="container">
+<h3 class="text-success" style="margin:20px 0">Sleep Disorder</h3>
+<img src="https://www.verywellmind.com/thmb/5T1kFtAXTNGAPRRpUvYE0BU-ieg=/768x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/tired-businessman-holding-whiskey-glass-on-office-desk-1083802850-ee12be35566640b39750939a779b9288.jpg" alt="">
+<h1>What Is Addiction?</h1>
+<p>Addiction is a complex, chronic brain condition influenced by genes and the environment that is characterized by substance use or compulsive actions that continue despite harmful consequences.1﻿
+
+
+    For a long time, addiction meant an uncontrollable habit of using alcohol or other drugs. More recently, the concept of addiction has expanded to include behaviors, such as gambling, as well as substances, and even ordinary and necessary activities, such as exercise and eating.</p>
+<h1>Types</h1>
+<p>While addiction to substances has often appeared clear-cut, there's some controversy about what substances are truly addictive. Current guidelines in the Diagnostic and Statistical Manual of Mental Disorders (DSM-5), the diagnostic tool used to diagnose different types of mental health conditions, indicate that most psychoactive substances, including medications, have the potential to be addictive.
+
+</p>
+<h1>Addictions vs. Substance Use Disorders</h1>
+<p>The term addiction is used to describe compulsive drug-seeking behaviors that continue in spite of negative outcomes, but it is important to note that addiction is not considered an official diagnosis in the DSM-5.2﻿
+
+    Rather than using the term "addiction," the DSM-5 classifies substance use disorders. While the diagnostic criteria vary for each type, the DSM-5 describes these disorders as a problematic pattern of use of intoxicating substances that leads to significant impairment and distress. These symptoms can result in impaired control, social impairment, risky use, and tolerance/withdrawal. 
+    
+    
+    While these conditions might be informally referred to as addictions, your doctor will officially diagnose you with some form of substance use disorder or one of the two behavioral addiction disorders that are officially recognized by the American Psychiatric Association (APA).</p>
+
+<div class="row">
+    <% if(posts.length>0){ %>
+        
+       <% posts.forEach(function(post){ %>
+    
+       
+        <div class="col col-6">
+        <div style="margin: auto;margin-top: 30px;">
+            <div class="card">
+                <img class="card-img-top" src="/uploads/<%=post.image%>" alt="Card image cap">
+                <div class="card-body">
+                  <h5 class="card-title"><%=post.title%></h5>
+                  <p class="card-text"><%=post.desc%></p>
+                  <p class="card-text"><small class="text-muted"><%=post.create%></small></p>
+                  
+                </div>
+              </div>
+            </div>
+        </div>
+    
+        <% }) %>
+    <% } else{ %>
+        <h1>No post yet!</h1>
+     <%} %>
+    
+    </div>
+</div>
+
+<%- include("partials/footer") %>

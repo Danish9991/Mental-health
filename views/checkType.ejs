@@ -1,0 +1,106 @@
+<%- include("partials/header") %>
+<form action="/checkType" method="post" style="margin: auto; text-align: center;">
+<!-- Default checkbox -->
+  
+ 
+  <div class="form-check container" style="margin: auto; text-align: center;">
+    <input
+      class="form-check-input"
+      type="checkbox"
+      value="addictions"
+      id="flexCheckChecked"
+      name="checkCat"
+      
+    />
+    <label class="form-check-label" for="flexCheckChecked">
+      Addictions
+    </label>
+  </div>
+  <div class="form-check container" style="margin: auto; text-align: center;">
+    <input
+      class="form-check-input"
+      type="checkbox"
+      value="adhd"
+      id="flexCheckChecked"
+      name="checkCat"
+    />
+    <label class="form-check-label" for="flexCheckChecked">
+      ADHD
+    </label>
+  </div>
+  <div class="form-check container" style="margin: auto; text-align: center;">
+    <input
+      class="form-check-input"
+      type="checkbox"
+      value="anxiety"
+      id="flexCheckChecked"
+      name="checkCat"
+    />
+    <label class="form-check-label" for="flexCheckChecked">
+      Anxiety
+    </label>
+  </div>
+  <div class="form-check container" style="margin: auto; text-align: center;">
+    <input
+      class="form-check-input"
+      type="checkbox"
+      value="bipolar"
+      id="flexCheckChecked"
+      name="checkCat"
+    />
+    <label class="form-check-label" for="flexCheckChecked">
+      Bipolar
+    </label>
+  </div>
+  <div class="form-check container" style="margin: auto; text-align: center;">
+    <input
+      class="form-check-input"
+      type="checkbox"
+      value="copingwithstress"
+      id="flexCheckChecked"
+      name="checkCat"
+    />
+    <label class="form-check-label" for="flexCheckChecked">
+      Coping With Stress
+    </label>
+  </div>
+  <div class="form-check container" style="margin: auto; text-align: center;">
+    <input
+      class="form-check-input"
+      type="checkbox"
+      value="depression"
+      id="flexCheckChecked"
+      name="checkCat"
+    />
+    <label class="form-check-label" for="flexCheckChecked">
+      Depression
+    </label>
+  </div>
+  <div class="form-check container" style="margin: auto; text-align: center;">
+    <input
+      class="form-check-input"
+      type="checkbox"
+      value="eatingdisorder"
+      id="flexCheckChecked"
+      name="checkCat"
+    />
+    <label class="form-check-label" for="flexCheckChecked">
+     Eating Disorder
+    </label>
+  </div>
+  <div class="form-check container" style="margin: auto; text-align: center;">
+    <input
+      class="form-check-input"
+      type="checkbox"
+      value="sleepdisorder"
+      id="flexCheckChecked"
+      name="checkCat"
+    />
+    <label class="form-check-label" for="flexCheckChecked">
+      Sleep Disorder
+    </label>
+  </div>
+  <input type="hidden" name="hid" value="<%=userId%>">
+  <button type="submit" class="btn btn-success">Submit</button>
+</form>
+<%- include("partials/footer") %>

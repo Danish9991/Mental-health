@@ -1,0 +1,17 @@
+<%- include("partials/header") %>
+
+<h1>show page</h1>
+<div style="margin: auto; width: 50%;margin-top: 30px;">
+    <div class="card " style="width: 50rem;">
+        <img class="card-img-top" src="/uploads/<%=post.image%>" alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title"><%=post.title%></h5>
+          <p class="card-text"><%=post.desc%></p>
+          <p class="card-text"><small class="text-muted"><%=post.create%></small></p>
+          
+        </div>
+      </div>
+    </div>
+
+
+<%- include("partials/footer") %>

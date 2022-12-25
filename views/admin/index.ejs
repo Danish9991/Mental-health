@@ -1,0 +1,22 @@
+<%- include("../adminPartials/header") %>
+<div class="container" style="margin: 30px auto;">
+    <div class="row">
+      <%  posts.forEach(function(post){ %>
+
+       
+      <div class="col col-lg-4">
+       <div class="card" style="width: 18rem;">
+      <img class="card-img-top" src="/uploads/<%=post.image%>" alt="<%=post.title%>">
+       <div class="card-body">
+      <h5 class="card-title"><%=post.title%></h5>
+      <p class="card-text"><%=(post.desc).slice(0, 100)%> ...</p>
+      <a href="/admin/posts/<%=post._id%>" class="btn btn-primary">See More Info</a>
+    </div>
+  </div>
+
+</div>
+<% }) %>
+</div>
+
+
+<%- include("../adminPartials/footer") %>

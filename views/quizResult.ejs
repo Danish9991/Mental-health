@@ -1,0 +1,59 @@
+<%- include("partials/header") %>
+<section class="py-5 section-1">
+    <div class="container py-5 text-center">
+<div class="container" >
+<table class="table">
+  <%  if(user.quiz){ %>
+       <h2>Result</h2>
+       <div class="table">
+           <thead class="thead-dark">
+               <th>Sno</th>
+               <th>category</th>
+               <th>Score</th>
+               <th>Played At</th>
+           </thead>
+        <% user.quiz.forEach(function(qz){%>
+            <tbody>
+
+          
+            <tr>
+               <td><%=x%></td>
+               <td><%=qz.title%></td>
+               <th><%=qz.score%></th>
+               <td><%=qz.playedAt%></td>
+            </tr>
+            <%x++;%>
+          <% }) %>
+        </tbody>
+       </div>
+  <%  }else{ %>
+        <h1>Not played any quiz!!!</h1>
+  <%  } %>
+    
+</table>
+<table class="table">
+  <h3>Scoring</h3>
+ <tbody>
+   <tr>
+    <th>0-20</th>
+    <th>ADHD unlikely</th>
+   </tr>
+   <tr>
+    <th>20-39</th>
+    <th>ADHD unlikely</th>
+   </tr>
+   <tr>
+    <th>40+ </th>
+    <th>ADHD unlikely</th>
+   </tr>
+  
+</tbody>
+
+</table>
+
+</div>
+</div>
+</section>
+
+
+<%- include("partials/footer") %>
